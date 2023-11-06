@@ -99,14 +99,14 @@ func (actor *MActorIm) run() {
 			//} else {
 			actor.sendEventResp(resp) // todo send msg
 			//}
-		case <-actor.heartTicker.C:
-			if actor.heartFlag == true {
-				actor.heartFlag = false
-			} else {
-				log.Error("心跳包超时错误", "sessionId", actor.SessionId)
-				actor.isclosing = true
-				actor.a.Destroy()
-			}
+			//case <-actor.heartTicker.C:
+			//	if actor.heartFlag == true {
+			//		actor.heartFlag = false
+			//	} else {
+			//		log.Error("心跳包超时错误", "sessionId", actor.SessionId)
+			//		actor.isclosing = true
+			//		actor.a.Destroy()
+			//	}
 		}
 	}
 }
