@@ -67,6 +67,12 @@ func (handler *WSHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	conn.SetReadLimit(int64(handler.maxMsgLen))
+	_ = conn.SetReadDeadline(time.Now().Add(30 * time.Second))
+	conn.SetPongHandler(func(appData string) error {
+		conn.SetReadDeadline(time.Now().Add(30 * time.Second))
+		log.Error("js自动心跳包")
+		return nil
+	})
 
 	handler.wg.Add(1)
 	defer handler.wg.Done()
