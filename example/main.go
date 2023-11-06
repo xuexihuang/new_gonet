@@ -57,9 +57,9 @@ func (gt *GateNet) CloseGate() {
 func main() {
 	var sdkWsPort, logLevel *int
 	var openIMWsAddress, openIMApiAddress, openIMDbDir *string
-	openIMApiAddress = flag.String("openIM_api_address", "http://125.124.195.201:10002",
+	openIMApiAddress = flag.String("openIM_api_address", "http://14.29.213.197:50002",
 		"openIM api listening address")
-	openIMWsAddress = flag.String("openIM_ws_address", "ws://125.124.195.201:10001",
+	openIMWsAddress = flag.String("openIM_ws_address", "ws://14.29.213.197:50001",
 		"openIM ws listening address")
 	sdkWsPort = flag.Int("sdk_ws_port", 10003, "openIMSDK ws listening port")
 	logLevel = flag.Int("openIM_log_level", 6, "control log output level")
