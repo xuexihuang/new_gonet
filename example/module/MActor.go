@@ -100,11 +100,12 @@ func (actor *MActorIm) run() {
 				actor.mJsCore.Destroy()
 			}
 			return
-		case <-actor.releaseResChan:
+		case resChan := <-actor.releaseResChan:
 			log.Info("收到释放资源通道消息")
 			actor.mJsCore.Destroy()
 			actor.a.Destroy()
 			actor.isReleasedJscore = true
+			resChan.BackSign <- true
 		case recvData := <-actor.ReceivMsgChan:
 			if actor.isclosing == true {
 				continue
