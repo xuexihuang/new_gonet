@@ -76,9 +76,16 @@ func main() {
 	gatenet := Initsever(*sdkWsPort)
 	gatenet.SetMsgFun(module.NewAgent, module.CloseAgent, module.DataRecv)
 	go gatenet.Runloop()
+	/////////////////////////////////////
+	statusGate := Initsever(90)
+	gatenet.SetMsgFun(module.NewStatusAgent, module.CloseStatusAgent, module.DataRecvStatus)
+	go gatenet.Runloop()
+	module.ProgressStartTime = time.Now().Unix()
+	///////////////////////////////////////////
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, os.Kill, syscall.SIGQUIT, syscall.SIGTERM)
 	sig := <-c
 	log.Info("wsconn server closing down ", "sig", sig)
 	gatenet.CloseGate()
+	statusGate.CloseGate()
 }

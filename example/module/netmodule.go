@@ -37,7 +37,7 @@ func NewAgent(a gate.Agent) {
 	param, err := checkToken(aUerData)
 	if err != nil {
 		log.Error("token校验失败", "userData", aUerData, "sessionId", aUerData.SessionID)
-		res := &ResponseSt{Type: RESP_OP_TYPE, Cmd: CONN_CMD, Success: false, ErrMsg: "check token error"}
+		res := &ResponseSt{Type: RESP_OP_TYPE, Success: false, ErrMsg: "check token error"}
 		resb, _ := json.Marshal(res)
 		resSend := &common.TWSData{MsgType: common.MessageText, Msg: resb}
 		a.WriteMsg(resSend)
@@ -48,7 +48,7 @@ func NewAgent(a gate.Agent) {
 	actor, err := NewMActor(a, param.SessionId, param)
 	if err != nil {
 		log.Error("NewMQActor error", "err", err, "sessionId", aUerData.SessionID)
-		res := &ResponseSt{Type: RESP_OP_TYPE, Cmd: CONN_CMD, Success: false, ErrMsg: "NewMQActor error"}
+		res := &ResponseSt{Type: RESP_OP_TYPE, Success: false, ErrMsg: "NewMQActor error"}
 		resb, _ := json.Marshal(res)
 		resSend := &common.TWSData{MsgType: common.MessageText, Msg: resb}
 		a.WriteMsg(resSend)
