@@ -173,7 +173,8 @@ func (actor *MActorIm) doRecvPro(data *common.TWSData) error {
 		log.Info("收到sub命令", "req", req, "sessionId", actor.SessionId)
 		err = actor.mJsCore.SendMsg(req)
 		if err != nil {
-			actor.sendEventResp(&core_func.EventData{ErrCode: 20000, ErrMsg: err.Error(), OperationID: req.OperationID})
+			actor.sendEventResp(&core_func.EventData{Event: req.ReqFuncName, ErrCode: 20000, ErrMsg: err.Error(),
+				OperationID: req.OperationID})
 		}
 	}
 	return nil
